@@ -1,10 +1,8 @@
-import React from 'react'
-
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
+    <div className={'App'}>
       <div>
         <h3>What to learn</h3>
         <div>
@@ -13,25 +11,13 @@ function App() {
         </div>
         <ul>
           <li>
-            <input
-              type="checkbox"
-              checked={true}
-            />{' '}
-            <span>HTML&CSS</span>
+            <input checked type={'checkbox'} /> <span>HTML&CSS</span>
           </li>
           <li>
-            <input
-              type="checkbox"
-              checked={true}
-            />{' '}
-            <span>JS</span>
+            <input checked type={'checkbox'} /> <span>JS</span>
           </li>
           <li>
-            <input
-              type="checkbox"
-              checked={false}
-            />{' '}
-            <span>React</span>
+            <input checked={false} type={'checkbox'} /> <span>React</span>
           </li>
         </ul>
         <div>

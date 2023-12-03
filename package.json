@@ -1,26 +1,22 @@
 {
-  "name": "1-lesson",
+  "name": "1-todolist",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.1",
-    "@types/react": "^18.0.23",
-    "@types/react-dom": "^18.0.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "rs:start": "react-scripts start",
+    "rs:build": "react-scripts build",
+    "rs:test": "react-scripts test",
+    "rs:eject": "react-scripts eject",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "predeploy": "pnpm run build",
+    "format": "prettier --write src",
+    "lint": "eslint --fix src/**/*.{tsx,ts,jsx,js} --no-error-on-unmatched-pattern && stylelint --fix src/{,*/}*.{scss,css} --allow-empty-input"
   },
   "eslintConfig": {
     "extends": [
@@ -41,8 +37,22 @@
     ]
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
-    "@nokken65/prettier-config": "^1.0.1",
-    "prettier": "^3.1.0"
+    "@it-incubator/eslint-config": "^1.0.1",
+    "@it-incubator/prettier-config": "^0.1.2",
+    "@it-incubator/stylelint-config": "^0.1.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.66",
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.7",
+    "@vitejs/plugin-react": "^4.2.0",
+    "react-scripts": "5.0.1",
+    "stylelint": "^15.11.0",
+    "typescript": "^4.8.4",
+    "vite": "^5.0.4",
+    "vite-tsconfig-paths": "^4.2.1",
+    "web-vitals": "^2.1.4"
   }
 }
