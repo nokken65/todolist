@@ -1,31 +1,24 @@
 import './App.css'
 
+import { type Task, Todolist } from './Todolist'
+
+const tasks1: Task[] = [
+  { id: 1, isDone: true, title: 'CSS' },
+  { id: 2, isDone: true, title: 'JS' },
+  { id: 3, isDone: false, title: 'React' },
+]
+
+const tasks2: Task[] = [
+  { id: 1, isDone: true, title: 'Trminator' },
+  { id: 2, isDone: false, title: 'XXX' },
+  { id: 3, isDone: true, title: 'Jentlments of fortune' },
+]
+
 function App() {
   return (
     <div className={'App'}>
-      <div>
-        <h3>What to learn</h3>
-        <div>
-          <input />
-          <button>+</button>
-        </div>
-        <ul>
-          <li>
-            <input checked type={'checkbox'} /> <span>HTML&CSS</span>
-          </li>
-          <li>
-            <input checked type={'checkbox'} /> <span>JS</span>
-          </li>
-          <li>
-            <input checked={false} type={'checkbox'} /> <span>React</span>
-          </li>
-        </ul>
-        <div>
-          <button>All</button>
-          <button>Active</button>
-          <button>Completed</button>
-        </div>
-      </div>
+      <Todolist tasks={tasks1} title={'What to learn'} />
+      <Todolist tasks={tasks2} title={'Movies'} />
     </div>
   )
 }
