@@ -1,7 +1,9 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "stylelint.validate": ["css", "scss"],
   "[json]":{
     "editor.defaultFormatter": "esbenp.prettier-vscode"
