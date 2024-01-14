@@ -1,19 +1,19 @@
-import type { TTask } from '@/entities/task'
-
 import React from 'react'
+
+import { useAppDispatch } from '@/app/model/store'
+import { taskModel } from '@/entities/task'
 
 import { AddTaskFormError } from './AddTaskFormError'
 
-type AddTaskFormProps = {
-  add: (title: TTask['title']) => void
-}
-
-const AddTaskForm = ({ add }: AddTaskFormProps) => {
+const _AddTaskForm = () => {
   const [input, setInput] = React.useState('')
   const [error, setError] = React.useState<null | string>(null)
+  const dispatch = useAppDispatch()
 
   const onAddNewTask = () => {
-    input.trim() !== '' ? add(input.trim()) : setError('Title is required!')
+    input.trim() !== ''
+      ? dispatch(taskModel.actions.add({ title: input.trim() }))
+      : setError('Title is required!')
     setInput('')
   }
 
@@ -38,5 +38,7 @@ const AddTaskForm = ({ add }: AddTaskFormProps) => {
     </div>
   )
 }
+
+const AddTaskForm = React.memo(_AddTaskForm)
 
 export { AddTaskForm }

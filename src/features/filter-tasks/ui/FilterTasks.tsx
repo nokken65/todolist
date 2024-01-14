@@ -1,20 +1,21 @@
 import React from 'react'
 
-import { TASKS_FILTER, type TasksFilter } from '../model/models'
+import { useAppDispatch, useAppSelector } from '@/app/model/store'
 
-type FilterTasksProps = {
-  current: TasksFilter
-  set: (filter: TasksFilter) => void
-}
+import { actions, selectors } from '../model'
+import { TASKS_FILTER } from '../model/models'
 
-const FilterTasks = ({ current, set }: FilterTasksProps) => {
+const _FilterTasks = () => {
+  const currentFilter = useAppSelector(selectors.selectTasksFilter)
+  const dispatch = useAppDispatch()
+
   return (
     <div>
       {TASKS_FILTER.map((filter, index) => (
         <button
-          className={current === filter ? 'active-filter' : ''}
+          className={currentFilter === filter ? 'active-filter' : ''}
           key={index}
-          onClick={() => set(filter)}
+          onClick={() => dispatch(actions.set(filter))}
         >
           {filter}
         </button>
@@ -22,5 +23,7 @@ const FilterTasks = ({ current, set }: FilterTasksProps) => {
     </div>
   )
 }
+
+const FilterTasks = React.memo(_FilterTasks)
 
 export { FilterTasks }

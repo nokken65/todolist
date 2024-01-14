@@ -1,17 +1,32 @@
 import type { TTask } from '../model/models'
 
-type TaskProps = TTask & {
-  remove: (id: TTask['id']) => void
-  toggle: (id: TTask['id']) => void
+import React from 'react'
+
+import { useAppDispatch, useAppSelector } from '@/app/model/store'
+
+import { actions, selectors } from '../model'
+
+type TaskProps = {
+  id: TTask['id']
 }
 
-const Task = ({ id, isDone, remove, title, toggle }: TaskProps) => {
-  return (
-    <label className={isDone ? 'is-done' : ''} htmlFor={id}>
-      <input checked={isDone} id={id} onChange={() => toggle(id)} type={'checkbox'} /> {title}{' '}
-      <button onClick={() => remove(id)}>✖️</button>
+const _Task = ({ id }: TaskProps) => {
+  const task = useAppSelector(state => selectors.selectById(state, id))
+  const dispatch = useAppDispatch()
+
+  return task === undefined ? null : (
+    <label className={task.isDone ? 'is-done' : ''} htmlFor={id}>
+      <input
+        checked={task.isDone}
+        id={id}
+        onChange={() => dispatch(actions.toggle({ id }))}
+        type={'checkbox'}
+      />{' '}
+      {task.title} <button onClick={() => dispatch(actions.remove({ id }))}>✖️</button>
     </label>
   )
 }
+
+const Task = React.memo(_Task)
 
 export { Task }
