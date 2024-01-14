@@ -7,7 +7,7 @@ import { TTask } from './models'
 
 const tasksAdapter = createEntityAdapter({
   selectId: (model: TTask) => model.id,
-  sortComparer: (a, b) => a.title.localeCompare(b.title),
+  sortComparer: (a, b) => a.createdAt - b.createdAt,
 })
 
 const initialState = tasksAdapter.getInitialState({
@@ -20,7 +20,12 @@ const tasksSlice = createSlice({
   name: 'tasks',
   reducers: {
     add: (state, { payload }: PayloadAction<Pick<TTask, 'title'>>) => {
-      tasksAdapter.addOne(state, { id: generateId(), isDone: false, title: payload.title })
+      tasksAdapter.addOne(state, {
+        createdAt: Date.now(),
+        id: generateId(),
+        isDone: false,
+        title: payload.title,
+      })
     },
     remove: (state, { payload }: PayloadAction<Pick<TTask, 'id'>>) => {
       tasksAdapter.removeOne(state, payload.id)
