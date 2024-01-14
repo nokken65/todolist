@@ -1,6 +1,7 @@
 import { Todolist } from '@/widgets/todolist/Todolist'
 
-import './App.css'
+import '@/shared/styles/reset.css'
+import '@/shared/styles/global.css'
 
 import { store } from './model/store'
 import { withProviders } from './providers'

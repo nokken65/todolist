@@ -8,7 +8,7 @@ const _TasksList = () => {
   const tasksIds = useAppSelector(filterTasksModel.selectors.selectFilteredTasksIds)
 
   return (
-    <ul>
+    <ul role={'list'}>
       {tasksIds.map(id => (
         <li key={id}>
           <Task id={id} />

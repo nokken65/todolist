@@ -3,6 +3,8 @@ import React from 'react'
 import { useAppDispatch } from '@/app/model/store'
 import { taskModel } from '@/entities/task'
 
+import styles from './AddTaskForm.module.css'
+
 import { AddTaskFormError } from './AddTaskFormError'
 
 const _AddTaskForm = () => {
@@ -10,7 +12,7 @@ const _AddTaskForm = () => {
   const [error, setError] = React.useState<null | string>(null)
   const dispatch = useAppDispatch()
 
-  const onAddNewTask = () => {
+  const addNewTask = () => {
     input.trim() !== ''
       ? dispatch(taskModel.actions.add({ title: input.trim() }))
       : setError('Title is required!')
@@ -22,20 +24,25 @@ const _AddTaskForm = () => {
     event.target.value.trim() !== '' && setError(null)
   }
 
-  const onKeyPressHandler: React.KeyboardEventHandler<HTMLInputElement> = event =>
-    event.key === 'Enter' && onAddNewTask()
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault()
+    addNewTask()
+  }
 
   return (
-    <div>
-      <input
-        className={error ? 'error' : ''}
-        onChange={onChangeNewTaskTitleHandler}
-        onKeyDown={onKeyPressHandler}
-        value={input}
-      />
-      <button onClick={onAddNewTask}>+</button>
+    <form className={styles.form} onSubmit={onSubmit}>
+      <div>
+        <input
+          className={styles.input + ' ' + (error === null ? '' : styles.error)}
+          onChange={onChangeNewTaskTitleHandler}
+          value={input}
+        />
+        <button className={styles.button} type={'submit'}>
+          +
+        </button>
+      </div>
       <AddTaskFormError error={error} />
-    </div>
+    </form>
   )
 }
 

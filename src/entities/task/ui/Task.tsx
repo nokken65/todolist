@@ -4,6 +4,8 @@ import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/model/store'
 
+import styles from './Task.module.css'
+
 import { actions, selectors } from '../model'
 
 type TaskProps = {
@@ -14,15 +16,17 @@ const _Task = ({ id }: TaskProps) => {
   const task = useAppSelector(state => selectors.selectById(state, id))
   const dispatch = useAppDispatch()
 
-  return task === undefined ? null : (
-    <label className={task.isDone ? 'is-done' : ''} htmlFor={id}>
+  return (
+    <label className={styles.task} data-checked={task.isDone}>
       <input
         checked={task.isDone}
-        id={id}
         onChange={() => dispatch(actions.toggle({ id }))}
         type={'checkbox'}
-      />{' '}
-      {task.title} <button onClick={() => dispatch(actions.remove({ id }))}>✖️</button>
+      />
+      <p>{task.title}</p>
+      <button className={styles.taskRemove} onClick={() => dispatch(actions.remove({ id }))}>
+        ✖️
+      </button>
     </label>
   )
 }

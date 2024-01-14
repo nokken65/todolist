@@ -1,0 +1,16 @@
+.todolist {
+  max-width: 20rem;
+  padding: 1rem;
+  border: 1px solid #303030;
+  border-radius: 1rem;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}

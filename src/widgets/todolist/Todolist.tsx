@@ -1,6 +1,8 @@
 import { AddTaskForm } from '@/features/add-task'
 import { FilterTasks } from '@/features/filter-tasks'
 
+import styles from './Todolist.module.css'
+
 import { TasksList } from './TasksList'
 
 type TodolistProps = {
@@ -9,11 +11,11 @@ type TodolistProps = {
 
 const Todolist = ({ title }: TodolistProps) => {
   return (
-    <div>
-      <h3>{title}</h3>
+    <div className={styles.todolist}>
+      <h3 className={styles.title}>{title}</h3>
       <AddTaskForm />
-      <TasksList />
       <FilterTasks />
+      <TasksList />
     </div>
   )
 }
