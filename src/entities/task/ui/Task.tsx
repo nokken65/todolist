@@ -7,10 +7,10 @@ type TaskProps = TTask & {
 
 const Task = ({ id, isDone, remove, title, toggle }: TaskProps) => {
   return (
-    <div className={isDone ? 'is-done' : ''}>
-      <input checked={isDone} onChange={() => toggle(id)} type={'checkbox'} /> <span>{title}</span>{' '}
+    <label className={isDone ? 'is-done' : ''} htmlFor={id}>
+      <input checked={isDone} id={id} onChange={() => toggle(id)} type={'checkbox'} /> {title}{' '}
       <button onClick={() => remove(id)}>✖️</button>
-    </div>
+    </label>
   )
 }
 
