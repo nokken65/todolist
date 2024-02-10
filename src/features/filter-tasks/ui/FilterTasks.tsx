@@ -15,7 +15,6 @@ const _FilterTasks = (props: FilterTasksProps) => {
     selectors.selectFilterByTasklistId(state, tasklistId)
   )
   const dispatch = useAppDispatch()
-  console.log(currentFilter)
 
   if (currentFilter === undefined) {
     return null
