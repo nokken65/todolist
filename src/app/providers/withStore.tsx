@@ -1,8 +1,8 @@
-import type { RootState } from '../model/store'
-import type { Store } from '@reduxjs/toolkit'
-
 import React from 'react'
 import { Provider } from 'react-redux'
+import type { Store } from '@reduxjs/toolkit'
+
+import type { RootState } from '../model/store'
 
 type WithStoreConfig = { store: Store<RootState> }
 

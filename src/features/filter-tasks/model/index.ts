@@ -1,1 +1,1 @@
-export * from './tasksFilterSlice'
+export * from './filterTasks'

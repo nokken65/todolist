@@ -1,23 +1,40 @@
 import React from 'react'
+import type { Tasklist } from '@/shared/api'
 
 import { useAppDispatch, useAppSelector } from '@/app/model/store'
+import { localStorageApi } from '@/shared/api'
 
+import { selectors } from '../model'
 import styles from './FilterTasks.module.css'
 
-import { actions, selectors } from '../model'
-import { TASKS_FILTER } from '../model/models'
+type FilterTasksProps = { tasklistId: Tasklist['id'] }
 
-const _FilterTasks = () => {
-  const currentFilter = useAppSelector(selectors.selectTasksFilter)
+const _FilterTasks = (props: FilterTasksProps) => {
+  const { tasklistId } = props
+  const currentFilter = useAppSelector((state) =>
+    selectors.selectFilterByTasklistId(state, tasklistId)
+  )
   const dispatch = useAppDispatch()
+  console.log(currentFilter)
+
+  if (currentFilter === undefined) {
+    return null
+  }
 
   return (
     <div className={styles.wrapper}>
-      {TASKS_FILTER.map((filter, index) => (
+      {localStorageApi.FILTER.map((filter, index) => (
         <button
-          className={styles.button + ' ' + (currentFilter === filter ? styles.active : '')}
+          className={
+            styles.button +
+            ' ' +
+            (currentFilter === filter ? styles.active : '')
+          }
           key={index}
-          onClick={() => dispatch(actions.set(filter))}
+          onClick={() =>
+            currentFilter !== filter &&
+            dispatch(localStorageApi.updateTasklist({ id: tasklistId, filter }))
+          }
         >
           {filter}
         </button>

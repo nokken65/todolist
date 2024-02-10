@@ -1,6 +1,13 @@
-import { App } from '@/app'
-import ReactDOM from 'react-dom/client'
+import { enableMapSet } from 'immer'
+import { createRoot } from 'react-dom/client'
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+import { App } from '@/app'
+import { createElementAndAppendToDOM } from '@/shared/utils/createElementAndAppendToDOM'
+
+enableMapSet()
+
+const container = createElementAndAppendToDOM('app-root')
+
+const root = createRoot(container)
 
 root.render(<App />)

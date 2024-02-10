@@ -1,45 +1,48 @@
-import { RootState } from '@/app/model/store'
-import { generateId } from '@/shared/utils/generateId'
-import { type PayloadAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import type { RootState } from '@/app/model/store'
+import type { Task } from '@/shared/api/localStorage/models'
 
-import { TASKS } from '../__mocks__/tasks'
-import { TTask } from './models'
+import { addTask } from '@/shared/api/localStorage/task/addTask'
+import { removeTask } from '@/shared/api/localStorage/task/removeTask'
+import { updateTask } from '@/shared/api/localStorage/task/updateTask'
+import { removeTasklist } from '@/shared/api/localStorage/tasklist/removeTasklist'
+import { getEntityStateFromLocalStorage } from '@/shared/utils/getEntityStateFromLocalStorage'
 
-const tasksAdapter = createEntityAdapter({
-  selectId: (model: TTask) => model.id,
-  sortComparer: (a, b) => a.createdAt - b.createdAt,
-})
+const tasksAdapter = createEntityAdapter<Task>()
 
-const initialState = tasksAdapter.getInitialState({
-  entities: TASKS.reduce((obj, task) => ({ ...obj, [task.id]: task }), {}),
-  ids: TASKS.map(({ id }) => id),
-})
+const initialState = tasksAdapter.getInitialState(
+  getEntityStateFromLocalStorage<Task['id'], Task>('tasks')
+)
 
 const tasksSlice = createSlice({
   initialState,
   name: 'tasks',
-  reducers: {
-    add: (state, { payload }: PayloadAction<Pick<TTask, 'title'>>) => {
-      tasksAdapter.addOne(state, {
-        createdAt: Date.now(),
-        id: generateId(),
-        isDone: false,
-        title: payload.title,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addTask.fulfilled, (state, action) => {
+        tasksAdapter.addOne(state, action.payload)
       })
-    },
-    remove: (state, { payload }: PayloadAction<Pick<TTask, 'id'>>) => {
-      tasksAdapter.removeOne(state, payload.id)
-    },
-    toggle: (state, { payload }: PayloadAction<Pick<TTask, 'id'>>) => {
-      tasksAdapter.updateOne(state, {
-        changes: { isDone: !state.entities[payload.id].isDone },
-        id: payload.id,
+      .addCase(removeTask.fulfilled, (state, action) => {
+        tasksAdapter.removeOne(state, action.payload.id)
       })
-    },
-  },
+      .addCase(updateTask.fulfilled, (state, action) => {
+        tasksAdapter.updateOne(state, {
+          id: action.payload.id,
+          changes: action.payload
+        })
+      })
+      .addCase(removeTasklist.fulfilled, (state, action) => {
+        tasksAdapter.removeMany(state, action.payload.taskIds)
+      })
+  }
 })
+
+const adapterSelectors = tasksAdapter.getSelectors(
+  (state: RootState) => state.tasks
+)
+
+export const selectors = { ...adapterSelectors }
 
 export const actions = tasksSlice.actions
 export const reducer = tasksSlice.reducer
-
-export const selectors = tasksAdapter.getSelectors((state: RootState) => state.tasks)

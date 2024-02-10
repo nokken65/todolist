@@ -1,1 +1,1 @@
-module.exports = require('@it-incubator/prettier-config');
+module.exports = { ...require('@nokken65/prettier-config') }

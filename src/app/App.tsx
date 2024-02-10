@@ -1,7 +1,7 @@
-import { Todolist } from '@/widgets/todolist/Todolist'
-
 import '@/shared/styles/reset.css'
 import '@/shared/styles/global.css'
+
+import { Todolist } from '@/widgets/todolist'
 
 import { store } from './model/store'
 import { withProviders } from './providers'
@@ -9,7 +9,7 @@ import { withProviders } from './providers'
 const _App = () => {
   return (
     <div className={'App'}>
-      <Todolist title={'What to learn'} />
+      <Todolist />
     </div>
   )
 }
