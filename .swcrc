@@ -1,4 +1,16 @@
 {
   "$schema": "https://json.schemastore.org/swcrc",
-  "jsc": {}
+  "jsc": {
+    "experimental": {
+      "plugins": [
+        [
+          "@swc/plugin-styled-components",
+          {
+            "displayName": true,
+            "ssr": true
+          }
+        ]
+      ]
+    }
+  }
 }

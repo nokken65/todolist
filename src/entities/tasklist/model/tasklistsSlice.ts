@@ -1,4 +1,8 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import {
+  createEntityAdapter,
+  createSelector,
+  createSlice
+} from '@reduxjs/toolkit'
 
 import { RootState } from '@/app/model/store'
 import { Tasklist } from '@/shared/api/localStorage/models'
@@ -62,9 +66,16 @@ const tasklistsSlice = createSlice({
   }
 })
 
-export const actions = tasklistsSlice.actions
-export const reducer = tasklistsSlice.reducer
-
-export const selectors = tasklistsAdapter.getSelectors(
+const adapterSelectors = tasklistsAdapter.getSelectors(
   (state: RootState) => state.tasklists
 )
+
+const selectTitleByTasklistId = createSelector(
+  [adapterSelectors.selectById],
+  (tasklist) => tasklist?.title
+)
+
+export const selectors = { ...adapterSelectors, selectTitleByTasklistId }
+
+export const actions = tasklistsSlice.actions
+export const reducer = tasklistsSlice.reducer

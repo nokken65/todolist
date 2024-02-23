@@ -1,11 +1,11 @@
 import React from 'react'
+import { Button, ButtonGroup } from '@mui/material'
 import type { Tasklist } from '@/shared/api'
 
 import { useAppDispatch, useAppSelector } from '@/app/model/store'
 import { localStorageApi } from '@/shared/api'
 
 import { selectors } from '../model'
-import styles from './FilterTasks.module.css'
 
 type FilterTasksProps = { tasklistId: Tasklist['id'] }
 
@@ -21,14 +21,13 @@ const _FilterTasks = (props: FilterTasksProps) => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <ButtonGroup
+      variant="outlined"
+      size="small"
+    >
       {localStorageApi.FILTER.map((filter, index) => (
-        <button
-          className={
-            styles.button +
-            ' ' +
-            (currentFilter === filter ? styles.active : '')
-          }
+        <Button
+          variant={currentFilter === filter ? 'contained' : 'outlined'}
           key={index}
           onClick={() =>
             currentFilter !== filter &&
@@ -36,9 +35,9 @@ const _FilterTasks = (props: FilterTasksProps) => {
           }
         >
           {filter}
-        </button>
+        </Button>
       ))}
-    </div>
+    </ButtonGroup>
   )
 }
 

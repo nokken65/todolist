@@ -1,19 +1,23 @@
 import '@/shared/styles/reset.css'
 import '@/shared/styles/global.css'
 
-import { Todolist } from '@/widgets/todolist'
+import React from 'react'
+import { CssBaseline } from '@mui/material'
+
+import { Routing } from '@/pages'
 
 import { store } from './model/store'
 import { withProviders } from './providers'
 
 const _App = () => {
   return (
-    <div className={'App'}>
-      <Todolist />
-    </div>
+    <>
+      <CssBaseline />
+      <Routing />
+    </>
   )
 }
 
-const App = withProviders({ store })(_App)
+const App = withProviders({ store })(_App) as () => React.ReactNode
 
 export { App }

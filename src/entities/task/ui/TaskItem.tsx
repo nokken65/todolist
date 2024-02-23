@@ -1,4 +1,6 @@
 import React from 'react'
+import { Delete as DeleteIcon } from '@mui/icons-material'
+import { Box, Checkbox, FormControlLabel, IconButton } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '@/app/model/store'
 import { Task } from '@/shared/api/localStorage/models'
@@ -6,7 +8,6 @@ import { removeTask } from '@/shared/api/localStorage/task/removeTask'
 import { updateTask } from '@/shared/api/localStorage/task/updateTask'
 
 import { selectors } from '../model'
-import styles from './TaskItem.module.css'
 
 type TaskProps = {
   id: Task['id']
@@ -17,20 +18,17 @@ const _TaskItem = ({ id }: TaskProps) => {
   const dispatch = useAppDispatch()
 
   return (
-    <label
-      className={styles.task}
-      data-checked={task?.isCompleted}
-    >
-      <input
-        checked={task?.isCompleted}
+    <Box sx={{ display: 'flex' }}>
+      <FormControlLabel
+        sx={{ width: '100%', gap: '0.4rem' }}
+        control={<Checkbox size="small" />}
+        label={task?.title}
         onChange={() =>
           dispatch(updateTask({ id, isCompleted: !task?.isCompleted }))
         }
-        type={'checkbox'}
+        checked={task?.isCompleted}
       />
-      <p>{task?.title}</p>
-      <button
-        className={styles.taskRemove}
+      <IconButton
         onClick={() =>
           dispatch(
             removeTask({
@@ -40,9 +38,9 @@ const _TaskItem = ({ id }: TaskProps) => {
           )
         }
       >
-        ✖️
-      </button>
-    </label>
+        <DeleteIcon color="error" />
+      </IconButton>
+    </Box>
   )
 }
 

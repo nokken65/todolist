@@ -8,7 +8,10 @@ export default defineConfig({
   plugins: [react(), sassDts(), tsconfigPaths()],
   server: { port: 3000 },
   resolve: {
-    alias: [{ find: '@', replacement: resolve(__dirname, 'src') }]
+    alias: [
+      { find: '@', replacement: resolve(__dirname, 'src') },
+      { find: '@mui/styled-engine', replacement: '@mui/styled-engine-sc' }
+    ]
   },
   css: {
     transformer: 'lightningcss',

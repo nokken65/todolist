@@ -1,11 +1,12 @@
 import React from 'react'
+import { Add as AddIcon } from '@mui/icons-material'
+import { FormControl, IconButton, TextField } from '@mui/material'
 
 import { useAppDispatch } from '@/app/model/store'
 import { Tasklist } from '@/shared/api/localStorage/models'
 import { addTask } from '@/shared/api/localStorage/task/addTask'
 
 import styles from './AddTaskForm.module.css'
-import { AddTaskFormError } from './AddTaskFormError'
 
 type AddTaskFormProps = {
   tasklistId: Tasklist['id']
@@ -39,10 +40,23 @@ const _AddTaskForm = ({ tasklistId }: AddTaskFormProps) => {
 
   return (
     <form
+      noValidate
+      autoComplete="off"
       className={styles.form}
       onSubmit={onSubmit}
     >
-      <div>
+      <FormControl sx={{ display: 'flex', flexDirection: 'row', gap: '4px' }}>
+        <TextField
+          value={input}
+          onChange={onChangeNewTaskTitleHandler}
+          error={!!error}
+          helperText={error}
+        />
+        <IconButton type="submit">
+          <AddIcon />
+        </IconButton>
+      </FormControl>
+      {/* <div>
         <input
           className={styles.input + ' ' + (error === null ? '' : styles.error)}
           onChange={onChangeNewTaskTitleHandler}
@@ -55,7 +69,7 @@ const _AddTaskForm = ({ tasklistId }: AddTaskFormProps) => {
           +
         </button>
       </div>
-      <AddTaskFormError error={error} />
+      <AddTaskFormError error={error} /> */}
     </form>
   )
 }

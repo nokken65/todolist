@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
+import { boardModel } from '@/entities/board'
 import { taskModel } from '@/entities/task'
 import { tasklistModel } from '@/entities/tasklist'
 
 const reducer = combineReducers({
   tasks: taskModel.reducer,
-  tasklists: tasklistModel.reducer
+  tasklists: tasklistModel.reducer,
+  boards: boardModel.reducer
 })
 
 const store = configureStore({

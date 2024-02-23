@@ -1,4 +1,5 @@
 import React from 'react'
+import { Stack } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '@/app/model/store'
 import { localStorageApi } from '@/shared/api'
@@ -16,13 +17,13 @@ const _TasklistItem = ({ id, children }: TasklistItemProps) => {
   const dispatch = useAppDispatch()
 
   return (
-    <div>
+    <Stack gap={2}>
       <h3>{tasklist?.title}</h3>
       {children}
       <button onClick={() => dispatch(localStorageApi.removeTasklist({ id }))}>
         DELETE
       </button>
-    </div>
+    </Stack>
   )
 }
 
