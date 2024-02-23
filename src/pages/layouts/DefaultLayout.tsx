@@ -3,6 +3,7 @@ import { ArrowBackIosNew as ArrowBackIcon } from '@mui/icons-material'
 import { Box, Button, Drawer, styled } from '@mui/material'
 
 import { BoardList } from '@/entities/board'
+import { AddBoard } from '@/features/add-board'
 
 const drawerWidth = 240
 
@@ -77,6 +78,7 @@ const DefaultLayout = (props: DefaultLayoutProps) => {
         </Button>
         <Box sx={{ overflow: 'auto' }}>
           <BoardList />
+          <AddBoard />
         </Box>
       </Drawer>
       <Main open={open}>
