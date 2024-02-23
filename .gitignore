@@ -8,7 +8,9 @@
 /.pnp
 .pnp.js
 
-.*env*
+/.*env*
+/.swc
+/.vscode
 
 # testing
 /coverage
